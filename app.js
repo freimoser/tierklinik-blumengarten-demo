@@ -1,7 +1,7 @@
 const CLINIC = 'https://petleo.app/?iframe=true&group=0&lang=de&redirect_url=/clinic/93dad0baf7ea629302991bb3dc63558cef464b6125e487032b96c11e75548f7a/branch/1/';
 
 const SERVICES = {
-  termin: { title: 'Termin buchen', url: CLINIC + 'book-appointment/' },
+  termin: { title: 'Termin buchen', url: CLINIC + 'book-appointment/', newTab: true },
   registrierung: { title: 'Kundenregistrierung', url: CLINIC + 'check-in/?register=true' },
   ausweis: { title: 'Heimtierausweis ausfüllen und senden', url: CLINIC + 'passport-registration/' },
 };
@@ -14,6 +14,10 @@ const ext = document.getElementById('modal-ext');
 function openService(key) {
   const s = SERVICES[key];
   if (!s) return;
+  if (s.newTab) {
+    window.open(s.url, '_blank', 'noopener');
+    return;
+  }
   title.textContent = s.title;
   ext.href = s.url;
   if (frame.dataset.key !== key) {
@@ -42,7 +46,10 @@ modal.addEventListener('close', () => document.documentElement.classList.remove(
 // Deep links like #termin, #registrierung, #ausweis open the matching service directly.
 function openFromHash() {
   const key = location.hash.slice(1);
-  if (SERVICES[key]) openService(key);
+  if (!SERVICES[key]) return;
+  // Browsers block new tabs without a click, so #termin opens the booking in the same tab.
+  if (SERVICES[key].newTab) location.href = SERVICES[key].url;
+  else openService(key);
 }
 window.addEventListener('hashchange', openFromHash);
 openFromHash();
