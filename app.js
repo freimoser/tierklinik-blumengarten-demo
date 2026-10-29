@@ -2,7 +2,7 @@ const CLINIC = 'https://petleo.app/?iframe=true&group=0&lang=de&redirect_url=/cl
 
 const SERVICES = {
   termin: { title: 'Termin buchen', url: 'https://petleo.app/?iframe=true&group=100&lang=de&redirect_url=/clinic/f4b05547-6e25-4b68-9871-9a59d8bf0893/branch/1/book-appointment/', newTab: true },
-  registrierung: { title: 'Kundenregistrierung', url: CLINIC + 'check-in/?register=true' },
+  registrierung: { title: 'Kundenregistrierung', url: 'https://petleo.app/?iframe=true&group=100&lang=de&redirect_url=/clinic/f4b05547-6e25-4b68-9871-9a59d8bf0893/branch/1/check-in/?register=true' },
   ausweis: { title: 'Heimtierausweis ausfüllen und senden', url: CLINIC + 'passport-registration/' },
 };
 
